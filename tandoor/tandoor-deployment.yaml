@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tandoor
+  namespace: tandoor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tandoor
+  template:
+    metadata:
+      labels:
+        app: tandoor
+    spec:
+      containers:
+        - name: tandoor
+          image: ghcr.io/tandoorrecipes/recipes:2.3.3
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: DB_ENGINE
+              value: django.db.backends.postgresql
+            - name: POSTGRES_HOST
+              value: tandoor-postgres
+            - name: POSTGRES_PORT
+              value: "5432"
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: tandoor-secrets
+                  key: POSTGRES_DB
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: tandoor-secrets
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: tandoor-secrets
+                  key: POSTGRES_PASSWORD
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: tandoor-secrets
+                  key: SECRET_KEY
+            - name: TIMEZONE
+              value: "Europe/Dublin"
+            - name: DEBUG
+              value: "0"
+          ports:
+            - containerPort: 8080
+              name: http
+          readinessProbe:
+            httpGet:
+              path: /accounts/login/
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /accounts/login/
+              port: http
+            initialDelaySeconds: 60
+            periodSeconds: 30
+          volumeMounts:
+            - name: media
+              mountPath: /opt/recipes/mediafiles
+            - name: static
+              mountPath: /opt/recipes/staticfiles
+      volumes:
+        - name: media
+          persistentVolumeClaim:
+            claimName: tandoor-media
+        - name: static
+          persistentVolumeClaim:
+            claimName: tandoor-static

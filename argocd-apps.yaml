@@ -7,11 +7,8 @@ spec:
   project: quick-apps
   source:
     repoURL: git@github.com:nikhilv14/argo-quick-apps.git
-    targetRevision: HEAD
+    targetRevision: main
     path: tandoor
-    helm:
-      releaseName: tandoor
-      chart: oci://ghcr.io/gabe565/charts/tandoor
   destination:
     server: https://kubernetes.default.svc
     namespace: tandoor
@@ -19,3 +16,6 @@ spec:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+
