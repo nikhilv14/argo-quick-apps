@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: tandoor
-          image: ghcr.io/tandoorrecipes/recipes:2.3.3
+          image: ghcr.io/tandoorrecipes/recipes:2.4.2
           imagePullPolicy: IfNotPresent
           env:
             - name: DB_ENGINE
@@ -48,12 +48,10 @@ spec:
               value: "Europe/Dublin"
             - name: DEBUG
               value: "0"
-            - name: ENABLE_NGINX
-              value: "0"        # <- disable bundled nginx[web:43][web:123]
-            - name: GUNICORN_BIND
-              value: "0.0.0.0:8080"
+            - name: TANDOOR_PORT    # internal nginx port
+              value: "80"
           ports:
-            - containerPort: 8080
+            - containerPort: 80
               name: http
           readinessProbe:
             httpGet:
