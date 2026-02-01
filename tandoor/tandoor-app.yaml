@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tandoor
+  namespace: argocd
+spec:
+  project: quick-apps
+  source:
+    repoURL: git@github.com:nikhilv14/argo-quick-apps.git
+    targetRevision: HEAD
+    path: tandoor
+    helm:
+      releaseName: tandoor
+      chart: oci://ghcr.io/gabe565/charts/tandoor
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: tandoor
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
