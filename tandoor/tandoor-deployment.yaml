@@ -48,6 +48,10 @@ spec:
               value: "Europe/Dublin"
             - name: DEBUG
               value: "0"
+            - name: ENABLE_NGINX
+              value: "0"        # <- disable bundled nginx[web:43][web:123]
+            - name: GUNICORN_BIND
+              value: "0.0.0.0:8080"
           ports:
             - containerPort: 8080
               name: http
