@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tandoor-postgres-new
+  namespace: tandoor
+spec:
+  accessModes: ["ReadWriteOnce"]
+  # Pinned to the live CSI PV (volumeName is set once the claim pre-binds;
+  # required to match the live object so ArgoCD stays in sync).
+  volumeName: pvc-0048af94-1ff2-46a1-9951-5e8c555fcd67
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: truenas-iscsi

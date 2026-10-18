@@ -5,6 +5,9 @@ metadata:
   namespace: tandoor
 spec:
   accessModes: ["ReadWriteOnce"]
+  # Pinned to the live CSI PV (volumeName is set once the claim pre-binds;
+  # required to match the live object so ArgoCD stays in sync).
+  volumeName: pvc-50ebf96f-bfad-4a30-b8cd-10646601115b
   resources:
     requests:
       storage: 10Gi
