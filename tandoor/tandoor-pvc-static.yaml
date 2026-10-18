@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: tandoor-static
+  name: tandoor-static-new
   namespace: tandoor
 spec:
   accessModes: ["ReadWriteOnce"]
