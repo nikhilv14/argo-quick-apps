@@ -70,12 +70,7 @@ spec:
           volumeMounts:
             - name: postgres-data
               mountPath: /var/lib/postgresql/data
-  volumeClaimTemplates:
-    - metadata:
-        name: postgres-data
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        resources:
-          requests:
-            storage: 10Gi
-        storageClassName: ssd-cache  # or your default
+      volumes:
+        - name: postgres-data
+          persistentVolumeClaim:
+            claimName: tandoor-postgres-new

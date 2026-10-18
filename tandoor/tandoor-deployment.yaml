@@ -73,7 +73,7 @@ spec:
       volumes:
         - name: media
           persistentVolumeClaim:
-            claimName: tandoor-media
+            claimName: tandoor-media-new
         - name: static
           persistentVolumeClaim:
-            claimName: tandoor-static
+            claimName: tandoor-static-new
