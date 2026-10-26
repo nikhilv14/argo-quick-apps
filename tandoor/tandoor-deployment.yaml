@@ -48,6 +48,8 @@ spec:
               value: "Europe/Dublin"
             - name: DEBUG
               value: "0"
+            - name: CSRF_TRUSTED_ORIGINS
+              value: "https://recipes.daemonagent.net,https://tandoor.home"
             - name: TANDOOR_PORT    # internal nginx port
               value: "80"
           ports:

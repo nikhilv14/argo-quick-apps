@@ -11,9 +11,20 @@ spec:
   tls:
     - hosts:
         - tandoor.home
+        - recipes.daemonagent.net
       secretName: recipes-tandoor-tls
   rules:
     - host: tandoor.home
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: tandoor
+                port:
+                  number: 80
+    - host: recipes.daemonagent.net
       http:
         paths:
           - path: /
