@@ -4,6 +4,10 @@ metadata:
   name: tandoor
   namespace: tandoor
 spec:
+  # Longhorn RWO volumes + RollingUpdate deadlock the rollout (new pod waits
+  # for volume detach while the old pod holds it). Recreate avoids that.
+  strategy:
+    type: Recreate
   replicas: 1
   selector:
     matchLabels:
