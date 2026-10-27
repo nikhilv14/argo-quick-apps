@@ -61,8 +61,10 @@ spec:
               value: "0"
             - name: CSRF_TRUSTED_ORIGINS
               value: "https://recipes.daemonagent.net,https://tandoor.home"
-            - name: TANDOOR_PORT    # internal nginx port
+            - name: TANDOOR_PORT  # internal nginx port
               value: "80"
+            - name: ALLOWED_HOSTS
+              value: "recipes.daemonagent.net,*"
           ports:
             - containerPort: 80
               name: http
